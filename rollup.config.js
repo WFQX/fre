@@ -1,4 +1,6 @@
 import { terser } from "rollup-plugin-terser"
+import typescript from 'rollup-plugin-typescript2'
+
 
 export default {
   input: "src/index.js",
@@ -7,6 +9,7 @@ export default {
     { file: "dist/fre.esm.js", format: "esm", esModule: false, sourcemap: true },
   ],
   plugins: [
+    typescript(),
     terser({
       include: ["fre.js"]
     })
