@@ -1,14 +1,14 @@
 // Supported and simplify jsx2
 // https://github.com/reactjs/rfcs/blob/createlement-rfc/text/0000-create-element-changes.md
 
-export function jsx(type, attrs, ...args) {
+export function jsx(type, attrs) {
   let props = attrs || {}
   let key: string = props.key || null
   let ref: Ref = props.ref || null
   let children: Vnode[] = []
 
-  for (let i = 0; i < args.length; i++) {
-    let vnode = args[i]
+  for (let i = 2; i < arguments.length; i++) {
+    let vnode = arguments[i]
     if (vnode == null || vnode === true || vnode === false) {
     } else {
         // if vnode is a nest array, flat them first
