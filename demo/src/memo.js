@@ -1,4 +1,8 @@
-import { h, render, useState, memo } from '../../src'
+import { h, render, useState } from '../../src'
+
+function memo(fn){
+  return fn
+}
 
 function App() {
   const [state, setState] = useState(0)
