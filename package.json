@@ -20,14 +20,6 @@
   "author": "132yse",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.0.0-0",
-    "@babel/plugin-transform-react-jsx": "^7.9.4",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/preset-react": "^7.9.4",
-    "@babel/preset-typescript": "^7.9.0",
-    "@types/jest": "^24.0.15",
-    "babel-jest": "^24.8.0",
     "codecov": "^3.6.1",
     "cross-env": "^5.2.0",
     "gzip-size-cli": "^3.0.0",
@@ -39,7 +31,6 @@
     "rollup-plugin-license": "^0.8.1",
     "rollup-plugin-terser": "^5.1.2",
     "rollup-plugin-typescript2": "^0.27.0",
-    "terser": "^4.1.2",
     "typescript": "^3.5.2",
     "yarpm": "^0.2.1"
   },
