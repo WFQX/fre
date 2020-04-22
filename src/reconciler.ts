@@ -1,5 +1,5 @@
 import { Vnode, Ref, Fiber, Props } from './type'
-import { scheduleWork } from './scheduler'
+import { scheduleWork, shouldYeild } from './scheduler'
 
 let currentFiber = null
 let preCommit = null
@@ -13,7 +13,26 @@ export function render(vnode: Vnode, node: HTMLElement, done: Function) {
     props: { children: vnode },
     done
   }
-  scheduleWork(rootFiber)
+  scheduleUpdate(rootFiber)
+}
+
+export function scheduleUpdate(fiber: Fiber) {
+  if (!fiber.dirty && (fiber.dirty = true)) {
+    batches.push(fiber)
+  }
+  scheduleWork(reconcileWork)
+}
+
+function reconcileWork(timeout: boolean) {
+  if (!wip) wip = batches.shift()
+  if (wip) {
+    while (!shouldYeild() || timeout) {
+      wip = reconcile(wip)
+    }
+    if (!timeout) return reconcileWork.bind(null)
+  }
+  if(preCommit) commitWork(preCommit)
+  return null
 }
 
 const enum Flag {

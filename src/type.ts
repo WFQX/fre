@@ -16,4 +16,11 @@ export type Fiber = {
   node: HTMLElement
   pnode?: HTMLElement
   done: Function
+  dirty?: boolean
 } & Vnode
+
+export type Task = {
+  work: Function
+  startTime: number
+  dueTime: number
+}
