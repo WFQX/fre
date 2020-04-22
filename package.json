@@ -14,16 +14,20 @@
   "scripts": {
     "test": "jest --coverage",
     "build": "rollup -c && gzip-size dist/fre.js",
+    "start": "rollup -c --watch",
     "format": "prettier --write \"{src,test,demo}/**/*.js\""
   },
   "keywords": [],
   "author": "132yse",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-react-jsx": "^7.9.4",
     "codecov": "^3.6.1",
     "cross-env": "^5.2.0",
     "gzip-size-cli": "^3.0.0",
     "jest": "^24.8.0",
+    "parcel-bundler": "^1.12.4",
     "prettier": "^1.19.1",
     "rollup": "^1.10.1",
     "rollup-plugin-babel": "^4.3.3",

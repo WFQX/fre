@@ -5,7 +5,7 @@ export function jsx(type, attrs) {
   let props = attrs || {}
   let key: string = props.key || null
   let ref: Ref = props.ref || null
-  let children: Vnode[] = []
+  let children: (Vnode|string)[] = []
 
   for (let i = 2; i < arguments.length; i++) {
     let vnode = arguments[i]
@@ -22,7 +22,7 @@ export function jsx(type, attrs) {
       // if there is only on child, it not need an array, such as child use as a function
     props.children = children.length === 1 ? children[0] : children
   }
-
+    // delete them to reduce loop performance
   delete props.key
   delete props.ref
 
@@ -40,7 +40,7 @@ type Ref =
 
 type Vnode = {
   type: Function | string
-  props: unknown
+  props: Record<string, unknown>
   key?: string
   ref?: Ref
-}
+} | string
