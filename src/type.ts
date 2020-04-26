@@ -16,7 +16,12 @@ export type Fiber = {
   node: HTMLElement
   pnode?: HTMLElement
   done: Function
-  dirty?: boolean
+  dirty?: boolean | number
+  props?: Props
+  oldProps?: Props
+  parent?: Fiber
+  child?: Fiber
+  sibling?: Fiber
 } & Vnode
 
 export type Task = {

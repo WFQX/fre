@@ -3,7 +3,7 @@ import { scheduleWork, shouldYeild } from './scheduler'
 
 let currentFiber = null
 let preCommit = null
-let wip = null
+let WIP = null
 let batches = []
 let commits = []
 
@@ -24,16 +24,39 @@ export function scheduleUpdate(fiber: Fiber) {
 }
 
 function reconcileWork(timeout: boolean) {
-  if (!wip) wip = batches.shift()
-  if (wip) {
+  if (!WIP) WIP = batches.shift()
+  if (WIP) {
     while (!shouldYeild() || timeout) {
-      wip = reconcile(wip)
+      WIP = reconcile(WIP)
     }
     if (!timeout) return reconcileWork.bind(null)
   }
   if(preCommit) commitWork(preCommit)
   return null
 }
+
+function reconcile(WIP: Fiber){
+  WIP.pnode = getPNode(WIP)
+  isFn(WIP.type) ? updateHOOK(WIP) : updateHost(WIP)
+  // dirty true => false undefined => 0
+  WIP.dirty = WIP.dirty ? false : 0
+  WIP.oldProps = WIP.props
+  commits.push(WIP)
+
+  if (WIP.child) return WIP.child
+  while (WIP) {
+    if (!preCommit && WIP.dirty === false) {
+      preCommit = WIP
+      return null
+    }
+    if (WIP.sibling) {
+      return WIP.sibling
+    }
+    WIP = WIP.parent
+  }
+}
+
+
 
 const enum Flag {
   PLACE = 1,
